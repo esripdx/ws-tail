@@ -1,0 +1,7 @@
+{
+  "port": 8088,
+  "files": [
+    "/var/log/*.log",
+    "/usr/local/var/log/nginx/error.log"
+  ]
+}
