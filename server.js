@@ -19,6 +19,10 @@ app.router.get('/ping', function() {
   this.res.json({ 'response': 'pong' });
 });
 
+app.router.get('/files.json', function() {
+  this.res.writeHead(200, {'Content-Type': 'application/json'});
+  this.res.json({ files: getLogFiles() });
+});
 
 app.start(config.port);
 console.log("Listening on port "+config.port);
@@ -47,7 +51,6 @@ var subscriptions = {};
 
 function subscribe(logfile, client) {
   console.log("New subscription request for "+logfile+" from client "+client.id);
-  console.log(subscriptions[client.id]);
 
   // Kill the old process
   if(subscriptions[client.id]) {
@@ -83,7 +86,7 @@ function unsubscribeAll(client) {
   }
 }
 
-function getFileList(client) {
+function getLogFiles() {
   var files = [];
   for(var i in config.files) {
     var moreFiles = glob.sync(config.files[i]);
@@ -91,9 +94,13 @@ function getFileList(client) {
       files.push(moreFiles[j]);
     }
   }
+  return files;
+}
+
+function getFileList(client) {
   client.write({
     type: "files",
-    files: files
+    files: getLogFiles()
   });
 }
 

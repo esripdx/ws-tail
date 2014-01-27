@@ -26,7 +26,7 @@
 }
 
 /* Yellow-fade thanks to @snookca: http://snook.ca/archives/html_and_css/yellow-fade-technique-css-animations */
-.highlight-new li {
+.highlight-new li, .highlight-new a {
   -webkit-animation: target-fade 2s 1;
   -moz-animation: target-fade 2s 1;
 }
