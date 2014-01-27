@@ -1,0 +1,50 @@
+.monospace {
+  font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", "Terminal", monospace;
+}
+
+.full-height {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+#tail {
+  background-color: #f5f5f5;
+  border: 1px #ddd solid;
+  color: #000;
+  text-shadow: #ddd 0 0 2px;
+  height: 400px;
+  padding: 4px;
+  font-size: 11px;
+  list-style-type: none;
+}
+#tail li.matching {
+  background-color: #f5f5e5;
+}
+
+#tail li:hover {
+  background: #e5e5e5;
+}
+
+/* Yellow-fade thanks to @snookca: http://snook.ca/archives/html_and_css/yellow-fade-technique-css-animations */
+.highlight-new li {
+  -webkit-animation: target-fade 2s 1;
+  -moz-animation: target-fade 2s 1;
+}
+@-webkit-keyframes target-fade {
+  0% {
+    background-color: rgba(255,255,0,0.2);
+  }
+
+  100% {
+    background-color: rgba(0,0,0,0);
+  }
+}
+@-moz-keyframes target-fade {
+  0% {
+    background-color: rgba(255,255,0,0.2);
+  }
+
+  100% {
+    background-color: rgba(0,0,0,0);
+  }
+}

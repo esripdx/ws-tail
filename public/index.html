@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ws-tail</title>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+    <div class="navbar-header">
+      <div class="navbar-brand title"><i class="fa fa-code"></i> <a href="/">ws-tail</a> <small id="log-status">is trying to connect</small></div>
+    </div>
+
+    <form class="navbar-form navbar-right" role="search">
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Filter">
+      </div>
+      <button type="button" id="auto-scroll" class="btn btn-default btn-primary">Auto-Scroll</button>
+    </form>
+  </nav>
+
+  <div class="bin-wrapper">
+    <div class="alerts"></div>
+    <div class="row">
+      <div class="col-md-3">
+        <div class="panel panel-default">
+          <div id="logfile-list" class="list-group full-height highlight-new">
+            <div class="list-group-item waiting">finding files...</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <ul id="tail" class="col-md-9 monospace full-height highlight-new"></ul>
+      </div>
+    </div>
+  </div>
+
+  <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script src="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.js"></script>
+  <script src="http://esri.github.io/esri-leaflet/lib/esri-leaflet/esri-leaflet.js"></script>
+  <script src="/primus/primus.io.js"></script>
+  <script src="/js/client.js"></script>
+</body>
+</html>
