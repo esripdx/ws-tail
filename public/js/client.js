@@ -26,8 +26,8 @@ $(function(){
     for(var i in files) {
       if($("#"+filenameToID(files[i])).length == 0) {
         $("#logfile-list").append('<a class="list-group-item" id="'+filenameToID(files[i])+'" data-filename="'+files[i].file+'" href="javascript:void();">'
-              +files[i].name
               +'<span class="date">'+(files[i].age > 86400 ? files[i].date_text : files[i].age_text)+'</span>'
+              +files[i].name
             +'</span>'
           +'</a>');
       }
