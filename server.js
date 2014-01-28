@@ -1,5 +1,6 @@
 var fs = require('fs');
-var glob = require("glob");
+var glob = require('glob');
+var moment = require('moment');
 
 var Primus = require('primus.io');
 var union = require('union');
@@ -89,9 +90,17 @@ function unsubscribeAll(client) {
 function getLogFiles() {
   var files = [];
   for(var i in config.files) {
-    var moreFiles = glob.sync(config.files[i]);
+    var moreFiles = glob.sync(config.files[i].glob);
     for(var j in moreFiles) {
-      files.push(moreFiles[j]);
+      var fileModifiedDate = fs.statSync(moreFiles[j]).mtime;
+      files.push({
+        file: moreFiles[j],
+        name: moreFiles[j].replace(config.files[i].prefix, ''),
+        age_text: moment(fileModifiedDate).fromNow(),
+        date_text: moment(fileModifiedDate).calendar(),
+        timestamp: Math.round(fileModifiedDate.getTime()/1000),
+        age: Math.round(((new Date()).getTime() - fileModifiedDate.getTime()) / 1000)
+      });
     }
   }
   return files;

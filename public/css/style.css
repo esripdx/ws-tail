@@ -7,6 +7,12 @@
   overflow-y: auto;
 }
 
+#logfile-list .date {
+  float: right;
+  font-size: 11px;
+  margin-top: 3px;
+}
+
 #tail {
   background-color: #f5f5f5;
   border: 1px #ddd solid;

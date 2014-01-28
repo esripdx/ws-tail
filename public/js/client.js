@@ -19,13 +19,17 @@ $(function(){
   var primus = new Primus('/');
 
   function filenameToID(fn) {
-    return "file_"+fn.replace(/[^a-z0-9-_]/g, '_');
+    return "file_"+fn.file.replace(/[^a-z0-9-_]/g, '_');
   }
 
   function updateFileList(files) {
     for(var i in files) {
       if($("#"+filenameToID(files[i])).length == 0) {
-        $("#logfile-list").append('<a class="list-group-item" id="'+filenameToID(files[i])+'" href="javascript:void();">'+files[i]+'</a>');
+        $("#logfile-list").append('<a class="list-group-item" id="'+filenameToID(files[i])+'" data-filename="'+files[i].file+'" href="javascript:void();">'
+              +files[i].name
+              +'<span class="date">'+(files[i].age > 86400 ? files[i].date_text : files[i].age_text)+'</span>'
+            +'</span>'
+          +'</a>');
       }
     }
     $("#logfile-list a").unbind('click').click(function(){
@@ -34,10 +38,19 @@ $(function(){
       $("#tail").empty();
       primus.write({
         action: "subscribe",
-        file: $(this).text()
+        file: $(this).data('filename')
       })
-    });    
+    });
   }
+
+  function refreshFileList() {
+    $.get("/files.json", function(data){
+      updateFileList(data.files);
+    });
+    setTimeout(refreshFileList, 5000);
+  }
+
+  setTimeout(refreshFileList, 5000);
 
   primus.on('open', function() {
     $("#log-status").text('is connected');
@@ -59,12 +72,6 @@ $(function(){
         }
       }
     });
-
-    setInterval(function(){
-      $.get("/files.json", function(data){
-        updateFileList(data.files);
-      })
-    }, 5000);
 
   });
 

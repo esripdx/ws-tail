@@ -1,7 +1,13 @@
 {
   "port": 8088,
   "files": [
-    "/var/log/*.log",
-    "/usr/local/var/log/nginx/error.log"
+    {
+      "glob": "/var/log/*.log",
+      "prefix": "/var/log/"
+    },
+    {
+      "glob": "/usr/local/var/log/nginx/error.log",
+      "prefix": "/usr/local/var/log/"
+    }
   ]
 }
