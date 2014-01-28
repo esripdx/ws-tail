@@ -36,6 +36,7 @@ $(function(){
       $("#logfile-list a").removeClass('active');
       $(this).addClass('active');
       $("#tail").empty();
+      $("#filter").val('');
       primus.write({
         action: "subscribe",
         file: $(this).data('filename')
@@ -51,6 +52,24 @@ $(function(){
   }
 
   setTimeout(refreshFileList, 5000);
+
+  function filterLog() {
+    var searchString = $("#filter").val();
+    if(searchString) {
+      var re = new RegExp(searchString, "i");
+      $("#tail li").each(function(i,el){
+        if((""+$(el).text()).match(re)) {
+          $(el).show();
+        } else {
+          $(el).hide();
+        }
+      });
+    } else {
+      $("#tail li").show();
+    }
+  }
+
+  $("#filter").bind('keyup', filterLog);
 
   primus.on('open', function() {
     $("#log-status").text('is connected');
@@ -70,6 +89,7 @@ $(function(){
         if(autoScroll) {
           $("#tail").scrollTop($("#tail li").length * 100);
         }
+        filterLog();
       }
     });
 
