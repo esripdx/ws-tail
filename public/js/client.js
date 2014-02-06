@@ -24,12 +24,15 @@ $(function(){
 
   function updateFileList(files) {
     for(var i in files) {
+      var age = (files[i].age > 86400 ? files[i].date_text : files[i].age_text);
       if($("#"+filenameToID(files[i])).length == 0) {
         $("#logfile-list").append('<a class="list-group-item" id="'+filenameToID(files[i])+'" data-filename="'+files[i].file+'" href="javascript:void();">'
-              +'<span class="date">'+(files[i].age > 86400 ? files[i].date_text : files[i].age_text)+'</span>'
+              +'<span class="date">'+age+'</span>'
               +files[i].name
             +'</span>'
           +'</a>');
+      } else {
+        $("#"+filenameToID(files[i])+" .date").text(age);
       }
     }
     $("#logfile-list a").unbind('click').click(function(){
