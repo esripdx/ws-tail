@@ -88,7 +88,7 @@ $(function(){
         updateFileList(data.files);
 
       } else if(data.type == 'line') {
-        $("#tail").append('<li>'+data.line+'</li>');
+        $("#tail").append( '<li>'+$('<div/>').text(data.line).html()+'</li>' );
         if(autoScroll) {
           $("#tail").scrollTop($("#tail li").length * 100);
         }
