@@ -1,4 +1,7 @@
 {
+  "basicAuth": false,
+  "user": "admin",
+  "password": "admin",
   "port": 8088,
   "files": [
     {

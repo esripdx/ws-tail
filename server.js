@@ -4,6 +4,7 @@ var moment = require('moment');
 
 var Primus = require('primus.io');
 var union = require('union');
+var connect = require('connect');
 var ecstatic = require('ecstatic');
 var flatiron = require('flatiron');
 var app      = flatiron.app;
@@ -11,7 +12,21 @@ var app      = flatiron.app;
 var tail           = require('./lib/tail');
 var config   = require(__dirname + '/config.json');
 
-app.use(flatiron.plugins.http);
+// If the basicAuth property has been set to true in config.json
+// http basic auth is used to restrict access to all pages
+// user and password properties are also set in the config.json
+if (config.basicAuth) {
+  app.use(flatiron.plugins.http, {
+    before: [
+      connect.basicAuth(function(user, pass){
+        return config.user == user && config.password == pass;
+      })
+    ]
+  });
+} else {
+  app.use(flatiron.plugins.http);
+}
+
 
 app.http.before.push(ecstatic(__dirname + '/public'));
 
